@@ -1,0 +1,35 @@
+<div class="collapse navbar-collapse fixed-bottom">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Anasayfa</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/about">Hakkımızda</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/articles">Makaleler</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ms-auto">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a href="#" class="nav-link">Hesabım</a>
+      </li>
+      <li class="nav-item">
+        <a href="/user/logout/" class="nav-link">Çıkış Yap</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="/admin/">{{user}}</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a href="/user/register/" class="nav-link">Kayıt Ol</a>
+      </li>
+      <li class="nav-item">
+        <a href="/user/login/" class="nav-link">Giriş Yap</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

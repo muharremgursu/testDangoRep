@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+
+<div class="jumbotron text-center mt-5">
+    <h3>Yazılım Bloğuna Hoş Geldiniz!</h3>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas, vitae.</p>
+</div>
+
+
+{% if request.user.is_authenticated %}
+    <p>Hoş Geldin <strong>{{user}}</strong></p>
+{% else %}
+    <p>Oturum Açılmamış</p>
+{% endif %}
+
+
+{% endblock %}

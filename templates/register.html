@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}  <!-- Crispi formun çalışması için -->
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-6  offset-md-3 bg-light">
+        <h3>Kayıt Ol</h3>
+        <hr>
+        <form method="POST">
+            <div>
+                {% csrf_token %}
+                {{ form|crispy }}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-outline-primary">Kayıt Ol</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

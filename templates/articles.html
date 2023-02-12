@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container mt-3">
+  <div>
+    <h3>Makale Paneli</h3>
+    <div>
+      <p>Hoş geldin {{user}}</p>
+
+      <div class="container bg-dark py-3 d-block">
+
+        <form class="ps-auto">
+
+          {% csrf_token %}
+          <div>
+            <input class="input-sm" type="text" name="keyword" id="keyword" placeholder="Makale ara...">
+            <button class="btn btn-light" type="submit">Ara</button>
+          </div>  
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+
+  {% if articles %}
+    {% for article in articles %}
+    <div class="card bg-light p-3">
+      {% if article.article_image %}
+      <a href="/articles/detail/{{ article.id }}"><img src="{{ article.article_image.url }}" alt="" class="img-fluid rounded w-50"></a>
+        {% else %}
+        <a href="/articles/detail/{{ article.id }}"><img src="/media/image_placeholder.png" alt="" class="img-fluid rounded w-50"></a>
+        {% endif %}
+        
+        <a href="/articles/detail/{{ article.id }}"><h3>{{ article.title }}</h3></a>
+
+        <p><b>Tarih:</b> {{ article.created_date}} - <b>Yazar:</b> {{ article.author}} </p>
+        
+
+        <p class="lead">{{ article.content|safe|truncatewords:20}}</p>
+
+        <div class="mb-2">
+          <a class="btn btn-info" href="/articles/detail/{{ article.id}}">devamını oku...</a>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+  {% else %}
+  <div class="alert alert-danger">
+      <p>Makale bulunamadı.</p>
+  </div>
+  {% endif %}
+</div>
+
+
+{% endblock %}

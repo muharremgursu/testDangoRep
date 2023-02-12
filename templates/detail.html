@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container">
+    
+    <hr>
+    {% if article.article_image %}
+    <img src="{{ article.article_image.url }}" alt="" class="img-fluid rounded w-50">
+    {% else %}
+    <img src="/media/image_placeholder.png" alt="" class="img-fluid rounded w-50">
+    {% endif %}
+    
+    <h3>{{ article.title }}</h3>
+
+    <p class="lead">{{ article.content|safe}}</p>
+    
+    <strong>Tarih:</strong> {{ article.created_date}}
+    <br>
+    <strong>Yazar:</strong> {{ article.author}}
+    <hr>
+    <a class="btn btn-info" href="/articles/">
+        <i class="fa-sharp fa-solid fa-arrow-left"></i> Makale listesine geri dön...
+    </a>
+    <br>
+    <br>
+    <br>
+
+    <!-- Yapılan Yorumları Gösterme -->
+    <div class="p-3">
+        {% if comments %}
+        <h3 class="text-center">Okuyucu Yorumları</h3>
+            {% for comment in comments %}
+                <!-- Single Comment -->
+                    <div class="media mb-4">
+                        <img src="https://via.placeholder.com/50x50" alt="" class="d-flex mr-3 rounded-circle">
+                        <div class="media-body">
+                            <h5 class="mt-5">{{ comment.comment_author }}</h5>
+                            <p>{{ comment.comment_content}}</p>
+                            <p>Yorum Tarihi: {{ comment.comment_date }} </p>
+                        </div>
+                    </div>
+                    <hr>
+                <!-- Single Comment -->  
+            {% endfor %}
+        {% else %}
+        <div class="alert alert-warning">Yorum yok...</div>
+        {% endif %}
+    </div>
+    
+    <!-- Yapılan Yorumları Gösterme -->
+
+    <!-- Yorum ekleme Formu -->
+    <div class="card my-4">
+        <h5 class="card-header">Yorum Yap:</h5>
+        <div class="card-body">
+            <form action="/articles/comment/{{ article.id }}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="comment_name">Adınız</label>
+                    <input type="text" class="form-control" name="comment_author" id="comment_name" placeholder="Yorumda görünecek isim...">
+                  </div>
+                  <div class="form-group">
+                    <label for="yorum">Yorumunuz</label>
+                    <textarea class="form-control" name="comment_content" id="yorum" cols="30" rows="10" placeholder="Herkese açık yorumunuz..."></textarea>
+                  </div>
+                <button class="btn btn-primary" type="submit">Yorum Ekle</button>
+            </form>
+        </div>
+    </div>
+    <!-- Yorum ekleme Formu -->
+
+
+    
+    
+   
+
+</div>
+
+
+
+
+
+{% endblock %}  
